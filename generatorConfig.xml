@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<classPathEntry location="D:/database/oracle/ojdbc6.jar" />
+	<context id="context1">
+		<jdbcConnection connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:xe"
+			driverClass="oracle.jdbc.driver.OracleDriver" password="oracle"
+			userId="esframe" />
+		<javaModelGenerator targetPackage="com.interframe.hr.dao"
+			targetProject="interframe-web-admin" />
+		<sqlMapGenerator targetPackage="com.interframe.hr.dao"
+			targetProject="interframe-web-admin" />
+		<javaClientGenerator targetPackage="com.interframe.hr.dao"
+			targetProject="com.interframe.hr.dao" type="XMLMAPPER" />
+		<table schema="esframe" tableName="HR_USERS">
+		</table>
+	</context>
+</generatorConfiguration>
