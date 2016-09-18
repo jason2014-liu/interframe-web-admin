@@ -2,9 +2,9 @@
 * TODO
 * @Project: interframe-web-admin
 * @Title: package-info.java
-* @Package com.interframe.hr.dao
+* @Package com.interframe.hr.repository
 * @author jason
-* @Date 2016年9月13日 下午5:49:49
+* @Date 2016年9月18日 上午10:06:40
 * @Copyright
 * @Version 
 */
@@ -13,4 +13,4 @@
 * @ClassName: package-info
 * @author jason
 */
-package com.interframe.hr.dao;
+package com.interframe.hr.repository;

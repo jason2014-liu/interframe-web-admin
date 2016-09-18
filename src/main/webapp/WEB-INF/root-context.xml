@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-	<context:property-placeholder location="classpath:jdbc.properties" />
+
 
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close">
@@ -33,26 +33,6 @@
 		<property name="maxOpenPreparedStatements" value="20" />
 	</bean>
 
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="classpath*:sample/config/mappers/**/*.xml" />
-	</bean>
-
-	<bean class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory" />
-	</bean>
-
-	<!-- 注册Mapper方式二：也可不指定特定mapper，而使用自动扫描包的方式来注册各种Mapper ，配置如下： -->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.interframe.hr.dao.mapper" />
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
-	</bean>
-
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
@@ -74,5 +54,37 @@
 		<aop:advisor pointcut-ref="transactionPointcut"
 			advice-ref="transactionAdvice" />
 	</aop:config>
+
+	<!-- profile定义必须放在最下面 -->
+
+	<beans profile="dev">
+		<context:property-placeholder location="classpath:jdbc-dev.properties" />
+	</beans>
+
+	<beans profile="production">
+		<context:property-placeholder location="classpath:jdbc-production.properties" />
+	</beans>
+
+	<beans profile="mybatis">
+		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="dataSource" ref="dataSource" />
+			<property name="mapperLocations" value="classpath*:com/interframe/hr/repository/mybatis/mappers/**/*.xml" />
+		</bean>
+
+		<bean class="org.mybatis.spring.SqlSessionTemplate">
+			<constructor-arg ref="sqlSessionFactory" />
+		</bean>
+
+		<!-- 注册Mapper方式二：也可不指定特定mapper，而使用自动扫描包的方式来注册各种Mapper ，配置如下： -->
+		<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+			<property name="basePackage" value="com.interframe.hr.repository.mybatis.mapper" />
+			<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+		</bean>
+		
+		<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	</beans>
 
 </beans>
