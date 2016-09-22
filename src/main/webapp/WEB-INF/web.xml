@@ -11,7 +11,7 @@
 	<!-- 对应于spring配置文件中的profile定义 -->
 	<context-param>
 		<param-name>spring.profiles.active</param-name>
-		<param-value>dev,mybatis</param-value>
+		<param-value>dev,jpa</param-value>
 	</context-param>
 
 	<servlet>
@@ -27,6 +27,18 @@
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
+
+	<!-- CXF Servlet -->
+	<servlet>
+		<servlet-name>cxfservlet</servlet-name>
+		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>cxfservlet</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+	<!-- End CXF Servlet -->
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
