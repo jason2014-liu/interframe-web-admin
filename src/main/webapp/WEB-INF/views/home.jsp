@@ -54,7 +54,7 @@
 
 	$(document).ready(function() {
 		
-		$.post("<%=request.getContextPath()%>/index/getMenus","",function(data,status){
+		$.post("<%=request.getContextPath()%>/hr/getMenus","",function(data,status){
 			
 			//alert("Data: " + data + "\nStatus: " + status);
 			$.fn.zTree.init($("#treeDemo"), setting,data);
@@ -64,6 +64,7 @@
 </SCRIPT>
 </head>
 <body class="easyui-layout">
+	<p><%=request.getContextPath() %></p>
 	<div data-options="region:'north',border:false"
 		style="height: 60px; background: #B3DFDA; padding: 10px">north
 		region</div>

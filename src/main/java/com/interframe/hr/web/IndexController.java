@@ -29,7 +29,7 @@ import com.interframe.hr.web.vo.ZTreeNode;
 @RequestMapping(value="/hr")
 public class IndexController {
 
-	@RequestMapping(value="/getMenus",method=RequestMethod.GET)
+	@RequestMapping(value="/getMenus",method=RequestMethod.POST)
 	@ResponseBody
 	public List<ZTreeNode> getMenus(){
 		
@@ -44,11 +44,6 @@ public class IndexController {
 		menus.add(node2);
 		
 		return menus;
-	}
-	
-	@RequestMapping(value="/")
-	public String toIndex(){
-		return "/hr/index";
 	}
 	
 }
