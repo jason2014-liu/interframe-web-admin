@@ -26,12 +26,10 @@ import com.interframe.hr.web.vo.ZTreeNode;
 * @author jason
 */
 @Controller
-@RequestMapping(value="/hr")
 public class IndexController {
 
-	@RequestMapping(value="/getMenus",method=RequestMethod.POST)
-	@ResponseBody
-	public List<ZTreeNode> getMenus(){
+	@RequestMapping(value="/hr/getMenus",method=RequestMethod.POST)
+	public @ResponseBody List<ZTreeNode> getMenus(){
 		
 		List<ZTreeNode> menus = new ArrayList<ZTreeNode>();
 		ZTreeNode node1 = new ZTreeNode("1","权限管理","0");
@@ -46,4 +44,8 @@ public class IndexController {
 		return menus;
 	}
 	
+	@RequestMapping(value="/home")
+	public String toHomePage(){
+		return "home";
+	}
 }

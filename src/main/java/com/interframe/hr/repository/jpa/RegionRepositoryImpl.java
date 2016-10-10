@@ -28,7 +28,7 @@ import com.interframe.hr.repository.model.Region;
 @Repository
 public class RegionRepositoryImpl implements RegionRepository {
 
-	@PersistenceContext
+	//@PersistenceContext
 	protected EntityManager em;
 	
 	/*

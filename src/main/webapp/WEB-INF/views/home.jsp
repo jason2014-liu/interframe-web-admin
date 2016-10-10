@@ -6,18 +6,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>主页</title>
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/static/plugins/jquery-easyui-1.4.5/themes/default/easyui.css">
+	href="<%=request.getContextPath()%>/static/plugins/jquery-easyui-1.4.5/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/static/plugins/jquery-easyui-1.4.5/themes/icon.css">
+	href="<%=request.getContextPath()%>/static/plugins/jquery-easyui-1.4.5/themes/icon.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath() %>/static/plugins/zTree_v3-master/css/zTreeStyle/zTreeStyle.css"
+	href="<%=request.getContextPath()%>/static/plugins/zTree_v3-master/css/zTreeStyle/zTreeStyle.css"
 	type="text/css">
 <script type="text/javascript"
-	src="<%=request.getContextPath() %>/static/plugins/jquery-easyui-1.4.5/jquery.min.js"></script>
+	src="<%=request.getContextPath()%>/static/plugins/jquery-easyui-1.4.5/jquery.min.js"></script>
 <script type="text/javascript"
-	src="<%=request.getContextPath() %>/static/plugins/jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
+	src="<%=request.getContextPath()%>/static/plugins/jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
 <script type="text/javascript"
-	src="<%=request.getContextPath() %>/static/plugins/zTree_v3-master/js/jquery.ztree.core.js"></script>
+	src="<%=request.getContextPath()%>/static/plugins/jquery-easyui-1.4.5/extension/jquery.portal.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/static/plugins/zTree_v3-master/js/jquery.ztree.core.js"></script>
 <SCRIPT type="text/javascript">
 	var setting = {
 		data : {
@@ -51,20 +53,129 @@
 		});
 
 	}
+	
+	var panels = [ {
+		id : 'p1',
+		title : 'Tutorials',
+		height : 200,
+		collapsible : true,
+		href : '<%=request.getContextPath()%>/'
+	}, {
+		id : 'p2',
+		title : 'Clock',
+		href : ''
+	}, {
+		id : 'p3',
+		title : 'PropertyGrid',
+		height : 200,
+		collapsible : true,
+		closable : true,
+		href : ''
+	}, {
+		id : 'p4',
+		title : 'DataGrid',
+		height : 200,
+		closable : true,
+		href : ''
+	}, {
+		id : 'p5',
+		title : 'Searching',
+		href : ''
+	}, {
+		id : 'p6',
+		title : 'Graph',
+		href : ''
+	} ];
+	
+	function getCookie(name){
+        var cookies = document.cookie.split(';');
+        if (!cookies.length) return '';
+        for(var i=0; i<cookies.length; i++){
+            var pair = cookies[i].split('=');
+            if ($.trim(pair[0]) == name){
+                return $.trim(pair[1]);
+            }
+        }
+        return '';
+    }
+	
+    function getPanelOptions(id){
+        for(var i=0; i<panels.length; i++){
+            if (panels[i].id == id){
+                return panels[i];
+            }
+        }
+        return undefined;
+    }
+	
+	function getPortalState(){
+        var aa = [];
+        for(var columnIndex=0; columnIndex<3; columnIndex++){
+            var cc = [];
+            var panels = $('#pp').portal('getPanels', columnIndex);
+            for(var i=0; i<panels.length; i++){
+                cc.push(panels[i].attr('id'));
+            }
+            aa.push(cc.join(','));
+        }
+        return aa.join(':');
+    }
+	
+	
+    function addPanels(portalState){
+        var columns = portalState.split(':');
+        for(var columnIndex=0; columnIndex<columns.length; columnIndex++){
+            var cc = columns[columnIndex].split(',');
+            for(var j=0; j<cc.length; j++){
+                var options = getPanelOptions(cc[j]);
+                if (options){
+                    var p = $('<div/>').attr('id',options.id).appendTo('body');
+                    p.panel(options);
+                    $('#pp').portal('add',{
+                        panel:p,
+                        columnIndex:columnIndex
+                    });
+                }
+            }
+        }
+        
+    }
+    
 
 	$(document).ready(function() {
 		
-		$.post("<%=request.getContextPath()%>/hr/getMenus","",function(data,status){
-			
-			//alert("Data: " + data + "\nStatus: " + status);
-			$.fn.zTree.init($("#treeDemo"), setting,data);
-		});
-		
+		$.post("<%=request.getContextPath()%>/hr/getMenus", "",
+								function(data, status) {
+									//alert("Data: " + data + "\nStatus: " + status);
+									$.fn.zTree.init($("#treeDemo"), setting,data);
+								});
+
+						//init portal
+
+
+	$('#pp').portal({
+	onStateChange : function() {
+		var state = getPortalState();
+		var date = new Date();
+		date.setTime(date.getTime() + 24 * 3600 * 1000);
+		document.cookie = 'portal-state='
+				+ state
+				+ ';expires='
+				+ date.toGMTString();
+	}
 	});
+	
+	var state = getCookie('portal-state');
+	if (!state) {
+		state = 'p1,p2:p3,p4:p5,p6'; // the default portal state
+	}
+	addPanels(state);
+	$('#pp').portal('resize');
+
+});
 </SCRIPT>
 </head>
 <body class="easyui-layout">
-	<p><%=request.getContextPath() %></p>
 	<div data-options="region:'north',border:false"
 		style="height: 60px; background: #B3DFDA; padding: 10px">north
 		region</div>
@@ -90,7 +201,13 @@
 	<div data-options="region:'center',title:'Center'">
 
 		<div id="tt" class="easyui-tabs">
-			<div title="welcome" style="padding: 20px; display: none;">主页</div>
+		
+			<div id="pp" style="width: 700px; position: relative">
+				<div style="width: 30%;"></div>
+				<div style="width: 30%;"></div>
+				<div style="width: 30%;"></div>
+			</div>
+			
 		</div>
 
 	</div>

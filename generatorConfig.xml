@@ -6,25 +6,17 @@
 		<jdbcConnection connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:xe"
 			driverClass="oracle.jdbc.driver.OracleDriver" password="oracle"
 			userId="hr" />
-		<javaModelGenerator targetPackage="com.interframe.hr.repository.mybatis"
+		<javaModelGenerator targetPackage="com.interframe.hr.repository.mybatis.model"
 			targetProject="D:\eclipse\workspace\interframe-web-admin\src\main\java" />
-		<sqlMapGenerator targetPackage="com.interframe.hr.repository.mybatis"
+		<sqlMapGenerator targetPackage="com.interframe.hr.repository.mybatis.mapper"
 			targetProject="D:\eclipse\workspace\interframe-web-admin\src\main\java" />
 		<javaClientGenerator targetPackage="com.interframe.hr.repository.mybatis"
 			targetProject="D:\eclipse\workspace\interframe-web-admin\src\main\java" type="XMLMAPPER" />
-		<table schema="hr" tableName="COUNTRIES" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+		<table schema="hr" tableName="SYS_USER" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
 		</table>
-		<table schema="hr" tableName="DEPARTMENTS" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+		<table schema="hr" tableName="SYS_ROLE" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
 		</table>
-		<table schema="hr" tableName="EMPLOYEES" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-		</table>
-		<table schema="hr" tableName="LOCATIONS" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-		</table>
-		<table schema="hr" tableName="REGIONS" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-		</table>
-		<table schema="hr" tableName="JOBS" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-		</table>
-		<table schema="hr" tableName="JOB_HISTORY" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+		<table schema="hr" tableName="SYS_PERMISSION" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
 		</table>
 	</context>
 </generatorConfiguration>

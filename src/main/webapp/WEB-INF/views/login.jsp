@@ -19,12 +19,19 @@
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script
 	src="<%=request.getContextPath()%>/static/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript">
+	
+		$(document).ready(function(){
+			
+		});
+	</script>
 </head>
 <body>
 	<div class="panel panel-default">
 		<div class="panel-heading">登录页</div>
 		<div class="panel-body">
-			<form class="form-horizontal" role="form">
+			<form class="form-horizontal" role="form" action="<%=request.getContextPath()%>/home">
 				<div class="form-group">
 					<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
 					<div class="col-sm-10">

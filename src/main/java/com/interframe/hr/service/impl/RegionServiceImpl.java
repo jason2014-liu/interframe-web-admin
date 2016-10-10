@@ -28,7 +28,7 @@ import com.interframe.hr.service.RegionService;
 public class RegionServiceImpl implements RegionService {
 
 	@Autowired
-	public RegionRepository regionRepository;
+	private RegionRepository regionRepository;
 	/* 
 	* TODO
 	* @Title: findRegions
