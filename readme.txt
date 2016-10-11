@@ -56,4 +56,12 @@ http://localhost:8888/interframe-web-admin/services/
 
 JAX-RS
 
+
+权限管理：
+user role permission
+
+用户管理
+
+角色管理
+
  

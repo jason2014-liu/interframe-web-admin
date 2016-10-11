@@ -3,20 +3,23 @@
 <generatorConfiguration>
 	<classPathEntry location="D:/database/oracle/ojdbc6.jar" />
 	<context id="context1">
+		<commentGenerator>
+            <property name="suppressAllComments" value="true" />
+         </commentGenerator>
 		<jdbcConnection connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:xe"
 			driverClass="oracle.jdbc.driver.OracleDriver" password="oracle"
 			userId="hr" />
-		<javaModelGenerator targetPackage="com.interframe.hr.repository.mybatis.model"
+		<javaModelGenerator targetPackage="com.interframe.system.repository.mybatis.model"
 			targetProject="D:\eclipse\workspace\interframe-web-admin\src\main\java" />
-		<sqlMapGenerator targetPackage="com.interframe.hr.repository.mybatis.mapper"
+		<sqlMapGenerator targetPackage="com.interframe.system.repository.mybatis.mapper"
 			targetProject="D:\eclipse\workspace\interframe-web-admin\src\main\java" />
-		<javaClientGenerator targetPackage="com.interframe.hr.repository.mybatis"
+		<javaClientGenerator targetPackage="com.interframe.system.repository.mybatis"
 			targetProject="D:\eclipse\workspace\interframe-web-admin\src\main\java" type="XMLMAPPER" />
-		<table schema="hr" tableName="SYS_USER" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+		<table schema="hr" tableName="SYS_USER" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
 		</table>
-		<table schema="hr" tableName="SYS_ROLE" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+		<table schema="hr" tableName="SYS_ROLE" domainObjectName="Role" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
 		</table>
-		<table schema="hr" tableName="SYS_PERMISSION" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+		<table schema="hr" tableName="SYS_PERMISSION" domainObjectName="Permission" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
 		</table>
 	</context>
 </generatorConfiguration>

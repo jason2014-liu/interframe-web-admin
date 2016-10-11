@@ -2,15 +2,13 @@
 * TODO
 * @Project: interframe-web-admin
 * @Title: UserService.java
-* @Package com.interframe.hr.service
+* @Package com.interframe.system.service
 * @author jason
-* @Date 2016年10月10日 下午4:37:36
+* @Date 2016年10月11日 上午9:33:15
 * @Copyright
 * @Version 
 */
-package com.interframe.hr.service;
-
-import com.interframe.hr.repository.mybatis.model.SysUser;
+package com.interframe.system.service;
 
 /**
 * TODO
@@ -19,5 +17,4 @@ import com.interframe.hr.repository.mybatis.model.SysUser;
 */
 public interface UserService {
 
-	SysUser selectById(String id);
 }

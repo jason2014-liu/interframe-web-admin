@@ -8,7 +8,7 @@
 * @Copyright
 * @Version 
 */
-package com.interframe.hr.repository.mybatis;
+package com.interframe.system.repository.mybatis;
 
 import java.io.File;
 import java.io.IOException;

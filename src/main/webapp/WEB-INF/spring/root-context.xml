@@ -12,7 +12,7 @@
 	<import resource="classpath:cxf-servlet.xml"/>
 	 -->
 
-	<context:component-scan base-package="com.interframe.hr" />
+	<context:component-scan base-package="com.interframe.system" />
 
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close">
@@ -55,7 +55,7 @@
 
 	<aop:config>
 		<aop:pointcut id="transactionPointcut"
-			expression="execution(* com.interframe.hr.service..*Impl.*(..))" />
+			expression="execution(* com.interframe.system.service..*Impl.*(..))" />
 		<aop:advisor pointcut-ref="transactionPointcut"
 			advice-ref="transactionAdvice" />
 	</aop:config>
@@ -74,7 +74,7 @@
 		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 			<property name="dataSource" ref="dataSource" />
 			<property name="mapperLocations"
-				value="classpath*:com/interframe/hr/repository/mybatis/mappers/**/*.xml" />
+				value="classpath*:com/interframe/system/repository/mybatis/mapper/**/*.xml" />
 		</bean>
 
 		<bean class="org.mybatis.spring.SqlSessionTemplate">
@@ -83,7 +83,7 @@
 
 		<!-- 注册Mapper方式二：也可不指定特定mapper，而使用自动扫描包的方式来注册各种Mapper ，配置如下： -->
 		<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-			<property name="basePackage" value="com.interframe.hr.repository.mybatis.mapper" />
+			<property name="basePackage" value="com.interframe.system.repository.mybatis" />
 			<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 		</bean>
 
