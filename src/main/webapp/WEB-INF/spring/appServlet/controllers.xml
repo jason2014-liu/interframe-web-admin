@@ -11,6 +11,6 @@
 	<mvc:view-controller path="/" view-name="login"/>
 	
 	<!-- scan controller -->
-	<context:component-scan base-package="com.interframe.hr.web" />
+	<context:component-scan base-package="com.interframe.system.web" />
 	 
 </beans>

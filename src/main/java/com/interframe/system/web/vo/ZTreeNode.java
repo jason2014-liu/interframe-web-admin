@@ -8,7 +8,7 @@
 * @Copyright
 * @Version 
 */
-package com.interframe.hr.web.vo;
+package com.interframe.system.web.vo;
 
 /**
 * TODO

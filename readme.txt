@@ -1,4 +1,6 @@
 连接池：https://github.com/alibaba/druid
+监控：
+https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_StatFilter
 
 
 mybatis doc:

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.*,com.interframe.system.repository.mybatis.model.Permission" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -144,7 +146,7 @@
 
 	$(document).ready(function() {
 		
-		$.post("<%=request.getContextPath()%>/hr/getMenus", "",
+		$.post("<%=request.getContextPath()%>/system/user/getMenus", "",
 								function(data, status) {
 									//alert("Data: " + data + "\nStatus: " + status);
 									$.fn.zTree.init($("#treeDemo"), setting,data);
@@ -182,14 +184,12 @@
 	<div data-options="region:'west',split:true,title:'West'"
 		style="width: 250px; padding: 10px;">
 		<div class="easyui-accordion">
-			<div title="About" data-options="iconCls:'icon-ok'"
-				style="overflow: auto; padding: 10px;">
-				<ul id="treeDemo" class="ztree"></ul>
-			</div>
-			<div title="Help" data-options="iconCls:'icon-help'"
-				style="padding: 10px;">
-				<p>help content</p>
-			</div>
+			
+			<c:forEach var="item" items="${requestScope.modules}">
+				<div title="${item.description}" style="overflow: auto; padding: 10px;">
+					<ul id="treeDemo" class="ztree"></ul>
+				</div>
+			</c:forEach>
 		</div>
 	</div>
 	<div

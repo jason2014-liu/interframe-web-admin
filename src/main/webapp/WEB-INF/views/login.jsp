@@ -31,7 +31,7 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">登录页</div>
 		<div class="panel-body">
-			<form class="form-horizontal" role="form" action="<%=request.getContextPath()%>/home">
+			<form class="form-horizontal" role="form" action="<%=request.getContextPath()%>/system/user/login" method="post">
 				<div class="form-group">
 					<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
 					<div class="col-sm-10">

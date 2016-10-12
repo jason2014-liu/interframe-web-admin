@@ -31,7 +31,7 @@ import com.interframe.system.repository.mybatis.model.Permission;
 */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:root-context-test.xml"})
-@ActiveProfiles("mybatis")
+@ActiveProfiles({"dev","mybatis"})
 public class PermissionServiceTests {
 
 	@Autowired
