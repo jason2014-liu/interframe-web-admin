@@ -1,6 +1,7 @@
 连接池：https://github.com/alibaba/druid
 监控：
 https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_StatFilter
+还可以按需要配置Spring和Web的关联监控。
 
 
 mybatis doc:

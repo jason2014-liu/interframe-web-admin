@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.interframe.system.repository.mybatis.model.Permission;
 import com.interframe.system.service.PermissionService;
+import com.interframe.system.web.form.LoginForm;
 import com.interframe.system.web.vo.ZTreeNode;
 
 
@@ -38,7 +39,10 @@ public class UserController {
 	private PermissionService permissionService;
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public ModelAndView login(){
+	public ModelAndView login(LoginForm form){
+	    //UsernamePasswordToken token = new UsernamePasswordToken(form.getUsername(), form.getPassword());
+
+		
 		ModelAndView mv = new ModelAndView("/home");
 		List<Permission> modules = permissionService.findModulesByUserId("001");
 		mv.addObject("modules", modules);
