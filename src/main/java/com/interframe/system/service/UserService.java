@@ -10,6 +10,8 @@
 */
 package com.interframe.system.service;
 
+import com.interframe.system.repository.mybatis.model.User;
+
 /**
 * TODO
 * @ClassName: UserService
@@ -17,4 +19,5 @@ package com.interframe.system.service;
 */
 public interface UserService {
 
+	User findByLoginName(String name);
 }

@@ -13,8 +13,14 @@ package com.interframe.system.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,44 +31,55 @@ import com.interframe.system.service.PermissionService;
 import com.interframe.system.web.form.LoginForm;
 import com.interframe.system.web.vo.ZTreeNode;
 
-
 /**
-* TODO
-* @ClassName: UserController
-* @author jason
-*/
+ * TODO
+ * 
+ * @ClassName: UserController
+ * @author jason
+ */
 @Controller
-@RequestMapping(value="/system/user")
+@RequestMapping(value = "/system/user")
 public class UserController {
+
+	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private PermissionService permissionService;
-	
-	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public ModelAndView login(LoginForm form){
-	    //UsernamePasswordToken token = new UsernamePasswordToken(form.getUsername(), form.getPassword());
 
-		
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ModelAndView login(LoginForm form) {
+
+		UsernamePasswordToken token = new UsernamePasswordToken(form.getUsername(), form.getPassword());
+
+		try {
+			SecurityUtils.getSubject().login(token);
+		} catch (AuthenticationException e) {
+			log.debug("Error authenticating.", e);
+			ModelAndView mv = new ModelAndView("/system/login");
+			mv.addObject("errorMsg", "The username or password was not correct.");
+			return mv;
+		}
+
 		ModelAndView mv = new ModelAndView("/home");
 		List<Permission> modules = permissionService.findModulesByUserId("001");
 		mv.addObject("modules", modules);
 		return mv;
+
 	}
-	
-	
-	@RequestMapping(value="/getMenus",method=RequestMethod.POST)
-	public @ResponseBody List<ZTreeNode> getMenus(){
-		
+
+	@RequestMapping(value = "/getMenus", method = RequestMethod.POST)
+	public @ResponseBody List<ZTreeNode> getMenus() {
+
 		List<ZTreeNode> menus = new ArrayList<ZTreeNode>();
-		ZTreeNode node1 = new ZTreeNode("1","权限管理","0");
-		ZTreeNode node11 = new ZTreeNode("11","角色维护","1");
-		ZTreeNode node12 = new ZTreeNode("12","权限维护","1");
-		ZTreeNode node2 = new ZTreeNode("2","系统配置","0");
+		ZTreeNode node1 = new ZTreeNode("1", "权限管理", "0");
+		ZTreeNode node11 = new ZTreeNode("11", "角色维护", "1");
+		ZTreeNode node12 = new ZTreeNode("12", "权限维护", "1");
+		ZTreeNode node2 = new ZTreeNode("2", "系统配置", "0");
 		menus.add(node1);
 		menus.add(node11);
 		menus.add(node12);
 		menus.add(node2);
-		
+
 		return menus;
 	}
 }

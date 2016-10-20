@@ -14,9 +14,7 @@
 
     <p>
         <span style="color: red;">
-            <spring:bind path="command.*">
-                ${status.errorMessage}
-            </spring:bind>
+            <%=request.getAttribute("errorMsg") %>
         </span>
     </p>
 
