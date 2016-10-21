@@ -14,6 +14,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -63,13 +64,13 @@ public class MyRealm extends AuthorizingRealm {
 
 		UsernamePasswordToken upToken = (UsernamePasswordToken) token;
 		User currUser = userService.findByLoginName(upToken.getUsername());
-
-		if (currUser != null) {
+		
+		if(currUser == null){
+			throw new UnknownAccountException("未知的用户！");
+		}else{
 			AuthenticationInfo authInfo = new SimpleAuthenticationInfo(currUser.getLoginName(), currUser.getPassword(),
 					this.getName());
 			return authInfo;
-		} else {
-			return null;
 		}
 
 	}

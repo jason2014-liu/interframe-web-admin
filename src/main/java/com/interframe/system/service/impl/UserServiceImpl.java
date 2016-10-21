@@ -10,8 +10,10 @@
 */
 package com.interframe.system.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.interframe.system.repository.mybatis.UserMapper;
 import com.interframe.system.repository.mybatis.model.User;
 import com.interframe.system.service.UserService;
 
@@ -23,10 +25,13 @@ import com.interframe.system.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
+	@Autowired
+	private UserMapper userMapper;
+	
 	@Override
 	public User findByLoginName(String name) {
 		// TODO Auto-generated method stub
-		return null;
+		return userMapper.SelectByLoginName(name);
 	}
 
 }

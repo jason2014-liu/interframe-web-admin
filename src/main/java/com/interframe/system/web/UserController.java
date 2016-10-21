@@ -15,12 +15,16 @@ import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.ExcessiveAttemptsException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,11 +54,27 @@ public class UserController {
 	public ModelAndView login(LoginForm form) {
 
 		UsernamePasswordToken token = new UsernamePasswordToken(form.getUsername(), form.getPassword());
-
+		Subject currentUser = SecurityUtils.getSubject();
+		currentUser.login(token);
+		
+		String msg = null;
+		
 		try {
-			SecurityUtils.getSubject().login(token);
-		} catch (AuthenticationException e) {
-			log.debug("Error authenticating.", e);
+		    currentUser.login(token);
+		} catch ( UnknownAccountException uae ) { 
+			msg = uae.getMessage();
+		} catch ( IncorrectCredentialsException ice ) { 
+			msg = "密码错误！";
+		} catch ( LockedAccountException lae ) { 
+			msg = "账号已被锁定，请联系系统管理员！";
+		} catch ( ExcessiveAttemptsException eae ) { 
+			msg = "尝试登录多次失败，账户已被锁定！";
+		} catch ( AuthenticationException ae ) {
+		    //unexpected error?  也可扩展AuthenticationException
+			msg = "未知错误！";
+		}
+		
+		if(msg != null){
 			ModelAndView mv = new ModelAndView("/system/login");
 			mv.addObject("errorMsg", "The username or password was not correct.");
 			return mv;

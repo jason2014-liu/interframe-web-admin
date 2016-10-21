@@ -60,6 +60,12 @@ http://localhost:8888/interframe-web-admin/services/
 JAX-RS
 
 
+
+在shiro中用Principals抽象了“身份”的概念，这里指的是我们的username，
+用Credentials抽象了“证明”的概念，这里指的是我们的password。
+
+
+
 权限管理：
 user role permission
 
