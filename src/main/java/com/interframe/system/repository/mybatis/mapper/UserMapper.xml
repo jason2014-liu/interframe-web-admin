@@ -97,4 +97,12 @@
     from HR.SYS_USER
     where LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
   </select>
+  <!-- 分页查询 -->
+   <select id="selectUsersByPage" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user su,sys_org_user sou
+	where su.id = sou.user_id
+	and sou.org_id = #{orgId,jdbcType=VARCHAR}
+  </select>
 </mapper>

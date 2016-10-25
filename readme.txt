@@ -10,6 +10,8 @@ http://www.mybatis.org/spring/zh/index.html
 
 code generator: http://www.mybatis.org/generator/running/runningWithEclipse.html
 
+分页插件：https://github.com/bleast/mybatis-page-plugin
+
 
 cxf(http://cxf.apache.org/docs/cxf-architecture.html)
 
@@ -63,6 +65,11 @@ JAX-RS
 
 在shiro中用Principals抽象了“身份”的概念，这里指的是我们的username，
 用Credentials抽象了“证明”的概念，这里指的是我们的password。
+
+实际应用：
+1、用到了shiro的登录验证和session管理，，对前台输入的密码加密，然后与数据库中存储的密码进行匹配，，shiro提供了常用
+的不可逆转的密码加密算法
+2、常用的权限使用，菜单直接在代码中过滤，，页面上的按钮可应用shiro的权限标签，，数据权限常常使用编码实现
 
 
 

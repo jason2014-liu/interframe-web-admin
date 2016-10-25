@@ -10,6 +10,7 @@
 */
 package com.interframe.system.service;
 
+import com.interframe.system.repository.mybatis.Page;
 import com.interframe.system.repository.mybatis.model.User;
 
 /**
@@ -20,4 +21,6 @@ import com.interframe.system.repository.mybatis.model.User;
 public interface UserService {
 
 	User findByLoginName(String name);
+	
+	Page<User> findByPage(String orgId, Page<User> page);
 }

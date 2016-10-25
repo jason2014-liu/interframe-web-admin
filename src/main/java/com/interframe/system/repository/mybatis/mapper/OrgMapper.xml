@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.interframe.system.repository.mybatis.OrgMapper">
+  <resultMap id="BaseResultMap" type="com.interframe.system.repository.mybatis.model.Org">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+    <result column="VALID" jdbcType="CHAR" property="valid" />
+    <result column="SORT_NUM" jdbcType="DECIMAL" property="sortNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, NAME, PARENT_ID, VALID, SORT_NUM
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HR.SYS_ORG
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HR.SYS_ORG
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.interframe.system.repository.mybatis.model.Org">
+    insert into HR.SYS_ORG (ID, NAME, PARENT_ID, 
+      VALID, SORT_NUM)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, 
+      #{valid,jdbcType=CHAR}, #{sortNum,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.interframe.system.repository.mybatis.model.Org">
+    insert into HR.SYS_ORG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="parentId != null">
+        PARENT_ID,
+      </if>
+      <if test="valid != null">
+        VALID,
+      </if>
+      <if test="sortNum != null">
+        SORT_NUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=CHAR},
+      </if>
+      <if test="sortNum != null">
+        #{sortNum,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.interframe.system.repository.mybatis.model.Org">
+    update HR.SYS_ORG
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        VALID = #{valid,jdbcType=CHAR},
+      </if>
+      <if test="sortNum != null">
+        SORT_NUM = #{sortNum,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.interframe.system.repository.mybatis.model.Org">
+    update HR.SYS_ORG
+    set NAME = #{name,jdbcType=VARCHAR},
+      PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      VALID = #{valid,jdbcType=CHAR},
+      SORT_NUM = #{sortNum,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+   <select id="selectAllOrg" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HR.SYS_ORG
+    where VALID = 0 order by SORT_NUM asc
+  </select>
+</mapper>
