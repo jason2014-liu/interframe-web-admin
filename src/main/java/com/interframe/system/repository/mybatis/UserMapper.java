@@ -1,7 +1,9 @@
 package com.interframe.system.repository.mybatis;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.interframe.system.repository.mybatis.model.User;
@@ -22,5 +24,11 @@ public interface UserMapper {
     
     User SelectByLoginName(String loginName);
     
-    List<User> selectUsersByPage(String orgId, Page<User> page);
+    /**
+    * TODO
+    * @Title: selectUsersByPage
+    * @param map
+    * @return
+     */
+    List<User> selectUsersByPage(@Param("map")Map<String, Object> params);
 }

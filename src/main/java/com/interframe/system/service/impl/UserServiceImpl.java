@@ -10,14 +10,15 @@
 */
 package com.interframe.system.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.interframe.system.repository.mybatis.Page;
 import com.interframe.system.repository.mybatis.UserMapper;
 import com.interframe.system.repository.mybatis.model.User;
+import com.interframe.system.repository.mybatis.page.PageInfo;
 import com.interframe.system.service.UserService;
 
 /**
@@ -38,11 +39,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Page<User> findByPage(String orgId, Page<User> page) {
+	public List<User> findByPage(User user, PageInfo pageInfo) {
 		// TODO Auto-generated method stub
-		List<User> users = userMapper.selectUsersByPage(orgId, page);
-		page.setResultList(users);
-		return page;
+		HashMap<String,Object> params = new HashMap<String,Object>();
+		params.put("orgId", user.getOrgId());
+		params.put("page", pageInfo);
+		List<User> users = userMapper.selectUsersByPage(params);
+		return users;
 	}
 
 }

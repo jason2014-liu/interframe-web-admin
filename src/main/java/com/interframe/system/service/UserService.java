@@ -10,8 +10,10 @@
 */
 package com.interframe.system.service;
 
-import com.interframe.system.repository.mybatis.Page;
+import java.util.List;
+
 import com.interframe.system.repository.mybatis.model.User;
+import com.interframe.system.repository.mybatis.page.PageInfo;
 
 /**
 * TODO
@@ -22,5 +24,5 @@ public interface UserService {
 
 	User findByLoginName(String name);
 	
-	Page<User> findByPage(String orgId, Page<User> page);
+	List<User> findByPage(User user, PageInfo pageInfo);
 }

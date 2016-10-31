@@ -10,6 +10,9 @@ public class User {
     private String password;
 
     private String valid;
+    
+    //机构ID
+    private String orgId;
 
     public String getId() {
         return id;
@@ -50,4 +53,14 @@ public class User {
     public void setValid(String valid) {
         this.valid = valid;
     }
+
+	public String getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(String orgId) {
+		this.orgId = orgId;
+	}
+    
+    
 }

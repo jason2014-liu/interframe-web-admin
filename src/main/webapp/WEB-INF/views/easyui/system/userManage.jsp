@@ -26,7 +26,43 @@ $(document).ready(function() {
 								//alert("Data: " + data + "\nStatus: " + status);
 								$.fn.zTree.init($("#orgTree"), setting,data);
 							});
-}
+	
+	var currOrgId = "0001";
+	
+	//初始化用户列表
+	$('#userTable').datagrid({
+		width:'100%',
+		nowrap: true,
+		autoRowHeight: false,
+		striped: true,
+		collapsible:true,
+		url:'<%=request.getContextPath()%>/system/user/getUsers',
+		queryParams:{orgId:currOrgId},
+		idField:'id',
+		fit:true,
+		fitColumns: true,
+		pageSize:10,
+		columns:[
+			[
+			 	{field:'id',align:'center',checkbox:true},
+				{field:'loginName',title:'登录账号',width:120,align:'center'},
+				{field:'name',title:'姓名',width:120,align:'center'},
+				{field:'valid',title:'用户状态',width:120,align:'center'},
+				{field:'password',title:'密码',width:120,align:'center',hidden:true},
+				{field:'opt',title:'操作',width:150,align:'center',formatter:function(value,rowData,rowIndex){
+					return "<a href='javascript:void(0)' onclick='userEdit(event,\""+rowData.id+"\");' >编辑</a>"
+					+"&nbsp;&nbsp;&nbsp;"+"<a href='javascript:void(0)' onclick='userDetail(event,\""+rowData.id+"\");' >详细信息</a>";
+				}}
+			]
+		],
+		pagination : true,
+		pageSize : 2,
+		pageNumber : 1,
+		pageList : [ 2, 5, 10, 20, 30 ],
+		rownumbers : false,
+		toolbar:'#toolbar',
+	});
+});
 </script>
 </head>
 <body>
@@ -38,19 +74,7 @@ $(document).ready(function() {
 		</div>
 
 		<div data-options="region:'center'">
-			<table id="dg" title="用户列表" class="easyui-datagrid"
-				style="width: 700px; height: 250px" url="get_users.php"
-				toolbar="#toolbar" pagination="true" rownumbers="true"
-				fitColumns="true" singleSelect="true">
-				<thead>
-					<tr>
-						<th field="firstname" width="50">First Name</th>
-						<th field="lastname" width="50">Last Name</th>
-						<th field="phone" width="50">Phone</th>
-						<th field="email" width="50">Email</th>
-					</tr>
-				</thead>
-			</table>
+			<div id="userTable"></div> 
 			<div id="toolbar">
 				<a href="javascript:void(0)" class="easyui-linkbutton"
 					iconCls="icon-add" plain="true" onclick="newUser()">新增</a> <a

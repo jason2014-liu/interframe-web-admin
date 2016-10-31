@@ -13,6 +13,9 @@ package com.interframe.system.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
@@ -31,8 +34,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.interframe.system.repository.mybatis.model.Permission;
+import com.interframe.system.repository.mybatis.model.User;
+import com.interframe.system.repository.mybatis.page.PageInfo;
 import com.interframe.system.service.PermissionService;
+import com.interframe.system.service.UserService;
 import com.interframe.system.web.form.LoginForm;
+import com.interframe.system.web.vo.DataGrid;
 import com.interframe.system.web.vo.ZTreeNode;
 
 /**
@@ -49,6 +56,9 @@ public class UserController {
 
 	@Autowired
 	private PermissionService permissionService;
+	
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView login(LoginForm form) {
@@ -101,6 +111,35 @@ public class UserController {
 		menus.add(node2);
 
 		return menus;
+	}
+	
+	@RequestMapping(value = "/getUsers", method = RequestMethod.POST)
+	public @ResponseBody DataGrid<User> queryUsers(HttpServletRequest request, HttpServletResponse response){
+		
+		String orgId = request.getParameter("orgId");
+		int pageNo = Integer.parseInt(request.getParameter("page"));
+		int pageSize = Integer.parseInt(request.getParameter("rows"));
+		
+		User user = new User();
+		user.setOrgId(orgId);
+		
+		PageInfo pageInfo = new PageInfo();
+		pageInfo.setPage(pageNo);
+		pageInfo.setShowCount(pageSize);
+		
+		
+		List<User> users = userService.findByPage(user, pageInfo);
+		
+		DataGrid<User> dg = new DataGrid<User>();
+		dg.setRows(users);
+		dg.setTotal(pageInfo.getTotalResult());
+		
+		return dg;
+	}
+	
+	@RequestMapping("/toUserManage")
+	public String toUserManage(){
+		return "/system/userManage";
 	}
 	
 	

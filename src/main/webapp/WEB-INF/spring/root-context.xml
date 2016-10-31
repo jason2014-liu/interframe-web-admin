@@ -92,11 +92,7 @@
 			<property name="dataSource" ref="dataSource" />
 			<property name="mapperLocations"
 				value="classpath*:com/interframe/system/repository/mybatis/mapper/*.xml" />
-			<property name="plugins">
-				<bean class="com.interframe.system.repository.mybatis.PageInterceptor">
-					<property name="databaseType" value="oracle"/>
-				</bean>
-			</property>
+			<property name="configLocation" value="classpath:mybatisConfig.xml" />
 		</bean>
 
 		<bean class="org.mybatis.spring.SqlSessionTemplate">
