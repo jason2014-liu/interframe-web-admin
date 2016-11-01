@@ -100,17 +100,15 @@ public class UserController {
 	@RequestMapping(value = "/getMenus", method = RequestMethod.POST)
 	public @ResponseBody List<ZTreeNode> getMenus() {
 
-		List<ZTreeNode> menus = new ArrayList<ZTreeNode>();
-		ZTreeNode node1 = new ZTreeNode("1", "权限管理", "0");
-		ZTreeNode node11 = new ZTreeNode("11", "角色维护", "1");
-		ZTreeNode node12 = new ZTreeNode("12", "权限维护", "1");
-		ZTreeNode node2 = new ZTreeNode("2", "系统配置", "0");
-		menus.add(node1);
-		menus.add(node11);
-		menus.add(node12);
-		menus.add(node2);
+		List<Permission> menus = permissionService.findMenusByUserId("001", null);
+		List<ZTreeNode> trees = new ArrayList<ZTreeNode>();
+		ZTreeNode node = null;
+		for(Permission menu : menus){
+			node = new ZTreeNode(menu.getId(),menu.getDescription(),menu.getParentId(),menu.getUrl());
+			trees.add(node);
+		}
 
-		return menus;
+		return trees;
 	}
 	
 	@RequestMapping(value = "/getUsers", method = RequestMethod.POST)

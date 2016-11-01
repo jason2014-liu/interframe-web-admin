@@ -25,4 +25,5 @@ public interface UserService {
 	User findByLoginName(String name);
 	
 	List<User> findByPage(User user, PageInfo pageInfo);
+	
 }

@@ -41,7 +41,7 @@
 	function onClick(event, treeId, treeNode, clickFlag) {
 
 		//alert(treeNode.name);
-		addTab(treeNode.name,'<%=request.getContextPath()%>/system/user/toUserManage');
+		addTab(treeNode.name,'<%=request.getContextPath()%>'+treeNode.menu_url);
 		
 	}
 	

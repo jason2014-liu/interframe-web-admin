@@ -68,7 +68,7 @@ $(document).ready(function() {
 <body>
 
 	<div class="easyui-layout" data-options="fit:true">
-		<div data-options="region:'west',split:true" style="width: 100px"
+		<div data-options="region:'west',split:true" style="width: 20%"
 			title="组织机构树">
 			<ul id="orgTree" class="ztree"></ul>
 		</div>

@@ -10,7 +10,9 @@
 */
 package com.interframe.system.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,15 @@ public class PermissionServiceImpl implements PermissionService {
 	public List<Permission> findModulesByUserId(String userId) {
 		// TODO Auto-generated method stub
 		return permissionMapper.findModulesByUserId(userId);
+	}
+
+	@Override
+	public List<Permission> findMenusByUserId(String userId, String moduleId) {
+		// TODO Auto-generated method stub
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("userId", userId);
+		params.put("moduleId", moduleId);
+		return permissionMapper.findMenusByUserId(params);
 	}
 
 }

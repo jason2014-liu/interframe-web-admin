@@ -28,4 +28,13 @@ public interface PermissionService {
 	* @return
 	 */
 	List<Permission> findModulesByUserId(String userId);
+	
+	/**
+	* TODO
+	* @Title: findMenusByUserId
+	* @param userId
+	* @param moduleId
+	* @return
+	 */
+	List<Permission> findMenusByUserId(String userId, String moduleId);
 }

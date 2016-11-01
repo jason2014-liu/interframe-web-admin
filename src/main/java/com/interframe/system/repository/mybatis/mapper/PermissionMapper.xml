@@ -122,4 +122,13 @@
 	and p.VALID = 0
 	and p.TYPE = 1 and p.URL is NULL
   </select>
+  <select id="findMenusByUserId" parameterType="map" resultMap="BaseResultMap">
+    select p.*
+	from sys_user_role ur,sys_role_permission rp,sys_permission p
+	where rp.PEMISSION_ID = p.ID
+	and ur.ROLE_ID = rp.ROLE_ID
+	and ur.USER_ID = #{map.userId,jdbcType=VARCHAR}
+	and p.VALID = 0
+	and p.TYPE = 1 and p.URL is not null
+  </select>
 </mapper>

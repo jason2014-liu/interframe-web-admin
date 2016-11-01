@@ -1,7 +1,9 @@
 package com.interframe.system.repository.mybatis;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.interframe.system.repository.mybatis.model.Permission;
@@ -27,4 +29,12 @@ public interface PermissionMapper {
     * @return
      */
     List<Permission> findModulesByUserId(String userId);
+    
+  /**
+  * TODO
+  * @Title: findMenusByUserId
+  * @param params
+  * @return
+   */
+    List<Permission> findMenusByUserId(@Param("map")Map<String, Object> params);
 }
