@@ -16,7 +16,8 @@
 		@ExceptionHandler, and others. -->
 	<mvc:annotation-driven />
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources/ directory -->
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources/ directory -->
 	<mvc:resources mapping="/static/**" location="/static/" />
 
 
@@ -44,5 +45,17 @@
 		<property name="prefix" value="/WEB-INF/views/easyui" />
 		<property name="suffix" value=".jsp"></property>
 	</bean>
-	
+
+	<bean class="com.interframe.system.exception.InterframeExceptionResolver">
+		<property name="defaultErrorView">
+			<value>/error</value>
+		</property>
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.sql.SQLException">/error</prop>
+				<prop key="java.lang.RuntimeException">/error</prop>
+			</props>
+		</property>
+	</bean>
+
 </beans>

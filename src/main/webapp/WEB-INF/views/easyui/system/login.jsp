@@ -14,7 +14,9 @@
 
     <p>
         <span style="color: red;">
-            <%=request.getAttribute("errorMsg") %>
+        	<c:if test="${!empty requestScope.errorMsg}">
+            	<%=request.getAttribute("errorMsg") %>
+            </c:if>
         </span>
     </p>
 

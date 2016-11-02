@@ -65,7 +65,6 @@ public class UserController {
 
 		UsernamePasswordToken token = new UsernamePasswordToken(form.getUsername(), form.getPassword());
 		Subject currentUser = SecurityUtils.getSubject();
-		currentUser.login(token);
 		
 		String msg = null;
 		
