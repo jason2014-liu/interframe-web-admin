@@ -10,7 +10,8 @@
 
 	<context:component-scan base-package="com.interframe.system" />
 	
-		<import resource="classpath:shiro-config.xml"/>
+	<import resource="classpath:shiro-config.xml"/>
+	<import resource="classpath:batch-config.xml"/>
 
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close">

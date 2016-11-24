@@ -169,6 +169,18 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>1.8.9</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.batch</groupId>
+			<artifactId>spring-batch-core</artifactId>
+			<version>3.0.7.RELEASE</version>
+		</dependency>
+		<!-- html 解析组件 -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.10.1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<!--产生的构件的文件名，默认值是${artifactId}-${version}。 -->

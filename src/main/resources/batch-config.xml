@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
+
+
+	<batch:job-repository id="jobRepository"
+		data-source="dataSource" transaction-manager="transactionManager"
+		table-prefix="BATCH_" />
+
+	<bean id="jobLuncher"
+		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+		<property name="jobRepository" ref="jobRepository"></property>
+	</bean>
+
+	<!-- 任务只要执行成功，再次执行时ExitCode=NOOP，表示任务不能再次被执行；可更改job的id，让系统识别为不同的job-->
+	<batch:job id="job4" job-repository="jobRepository">
+		<batch:step id="step">
+			<batch:tasklet transaction-manager="transactionManager">
+				<batch:chunk reader="itemReader" processor="itemProcessor" writer="itemWriter" commit-interval="2"/>
+			</batch:tasklet>
+		</batch:step>
+	</batch:job>
+
+	<bean id="userRowMapper" class="com.interframe.system.batch.UserRowMapper" />
+
+	<bean id="itemReader"
+		class="org.springframework.batch.item.database.JdbcPagingItemReader">
+		<property name="dataSource" ref="dataSource" />
+		<property name="queryProvider">
+			<bean
+				class="org.springframework.batch.item.database.support.SqlPagingQueryProviderFactoryBean">
+				<property name="selectClause" value="select id,name,login_name,password,valid" />
+				<property name="fromClause" value="from sys_user" />
+				<property name="whereClause" value="where valid = :valid" />
+				<property name="sortKey" value="id" />
+				<property name="dataSource" ref="dataSource"></property>
+				<property name="databaseType" value="oracle"></property>
+			</bean>
+		</property>
+		<property name="parameterValues">
+			<map>
+				<entry key="valid" value="0" />
+			</map>
+		</property>
+		<property name="pageSize" value="2" />
+		<property name="rowMapper" ref="userRowMapper" />
+	</bean>
+	
+	<bean id="itemProcessor" class="com.interframe.system.batch.UserProcesser"></bean>
+
+	<bean id="itemWriter"
+		class="org.springframework.batch.item.database.JdbcBatchItemWriter">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="sql"
+			value="insert into sys_user01(id,name,login_name,password,valid) values(:id,:name,:loginName,:password,:valid)"></property>
+		<property name="itemSqlParameterSourceProvider">
+			<bean
+				class="org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider"></bean>
+		</property>
+	</bean>
+
+</beans>
